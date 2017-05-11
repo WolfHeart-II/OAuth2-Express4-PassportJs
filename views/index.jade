@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  #page-wrapper.container-fluid.margin-ajuste.col-md-10.col-md-offset-5
+    // CABEÇALHO DO CORPO DA PÁGINA
+    .row
+      .col-lg-12
+        h1.page-header
+          | Moderar Campanha 
+          small OLHAR OLÍMPICO
+    // /CABEÇALHO DO CORPO DA PÁGINA
+    // PUBLICAÇÕES
+    ng-video-preview(source='youtube', player-width='600', player-height='800', url='http://youtu.be/VEUfscdqpNg')
+    .row
+      .col-sm-3.col-lg-3.col-md-4(ng-repeat='publication in listPublications.references')
+        .uk-thumbnail
+          img(ng-src='{{publication.mediaLink}}', id='{{publication._id}}', width='600', height='400', ng-click='selectImage(publication._id)')
+          p.font-descricao Descrição:
+          p Autor:
+          p Tipo:
