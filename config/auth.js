@@ -1,5 +1,3 @@
-// Author - Laércio S Bezerra | laerciosouza@lavid.ufpb.br
-
 /*
  * OAuth Authentication Settings
  */

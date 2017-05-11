@@ -1,54 +1,22 @@
 extends layout
 
-extends layout
-
-block content
-  #login-overlay.modal-dialog
-    #my_login_modal.modal-content
-      .modal-header
-        h4#myModalLabel.modal-title
-          | Entre no 
-          b Cultura
-        |  Desenvolvido por 
-        a(target='_blank', href='http://lavid.ufpb.br/pt/quem_somos') LAViD
-        | .
-      .modal-body
-        .row.center-block
-          #my_login_block.col-xs-10.center-block
-            .well.col-md-12
-              a(href='/auth/twitter').btn.btn-block.btn-social.btn-adn.btn-twitter
-                span.fa.fa-twitter
-                |   Acesse com o Twitter
-              a(href='/auth/instagram').btn.btn-block.btn-social.btn-adn.btn-instagram
-                span.fa.fa-instagram
-                |   Acesse com o Instagram
-              a(href='/auth/facebook').btn.btn-block.btn-social.btn-adn.btn-facebook
-                span.fa.fa-facebook
-                |   Acesse com o Facebook
-              a(href='/auth/google').btn.btn-block.btn-social.btn-adn.btn-google
-                span.fa.fa-google
-                |   Acesse com o Google
-
 block form
   #login-overlay.modal-dialog
     #my_login_modal.modal-content
       .modal-header
         h4#myModalLabel.modal-title
-          | Entre no 
-          b Cultura
-        |  Desenvolvido por 
-        a(target='_blank', href='http://lavid.ufpb.br/pt/quem_somos') LAViD
-        | .
+          | Login to your  
+          b Account
       .modal-body
         .row.center-block
           #my_login_block.col-xs-10.center-block
             .well.col-md-12
 
               .form-signin
-                if message != ""
-                  .alert.alert-danger.animated.fadeIn
-                    button.close(type='button', data-dismiss='alert') ×
-                    div= message
+                //if message != ""
+                //  .alert.alert-danger.animated.fadeIn
+                //    button.close(type='button', data-dismiss='alert') ×
+                //    div= message
 
                 form.form-signin(action="/users/session", method="post", role="form")
                   input(type='hidden', name='_csrf', value=_csrf)
@@ -60,23 +28,24 @@ block form
 
                   button.btn.btn-lg.btn-primary.btn-block.btn-login(type='submit') Sign in
 
-                  a(href="forgot-password" class="forgot-password") Forgot Password
-
-                  .row.m-b
-                    a.btn.btn-lg.btn-twitter(href="/auth/twitter")
-                      i.fa.fa-fw.fa-twitter
-                      | &nbsp; Sign in with Twitter
-
-                  .row.m-b
-                    a.btn.btn-lg.btn-facebook(href="/auth/facebook")
-                      i.fa.fa-fw.fa-facebook
-                      | &nbsp; Sign in with Facebook
-
+                  //a(href="forgot-password" class="forgot-password") Forgot Password
+                  //a(href='/auth/twitter').btn.btn-block.btn-social.btn-adn.btn-twitter
+                  //  span.fa.fa-twitter
+                  //  |   &nbsp; Sign in with Twitter
+                  //a(href='/auth/instagram').btn.btn-block.btn-social.btn-adn.btn-instagram
+                  //  span.fa.fa-instagram
+                  //  |   &nbsp; Sign in with Instagram
+                  //a(href='/auth/facebook').btn.btn-block.btn-social.btn-adn.btn-facebook
+                  //  span.fa.fa-facebook
+                  //  |   &nbsp; Sign in with Facebook
+                  //a(href='/auth/google').btn.btn-block.btn-social.btn-adn.btn-google
+                  //  span.fa.fa-google
+                  //  |   &nbsp; Sign in with  Google
                   div.clearfix
 
-                  p.line.line-dashed
+                  //p.line.line-dashed
 
-                  p.text-muted.text-center
-                    small Do not have an account?
-                  a.btn.btn-lg.btn-default.btn-block(href='/signup') Create an account
+                  //p.text-muted.text-center
+                  //  small Do not have an account?
+                  //a.btn.btn-lg.btn-default.btn-block(href='/signup') Create an account
                 

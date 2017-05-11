@@ -1,5 +1,3 @@
-// Author - Laércio S Bezerra | laerciosouza@lavid.ufpb.br
-
 var express = require('express');
 var router = express.Router();
 var index_controller = require('../controllers/index_controller');
