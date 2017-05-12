@@ -18,11 +18,11 @@ block form
                 //    button.close(type='button', data-dismiss='alert') ×
                 //    div= message
 
-                form.form-signin(action="/users/session", method="post", role="form")
+                form.form-signin(action="auth/login", method="post", role="form")
                   input(type='hidden', name='_csrf', value=_csrf)
                   .list-group
                     .list-group-item
-                      input.form-control.no-border(type='text', autocomplete="off" placeholder='Email', name="email")
+                      input.form-control.no-border(type='text', autocomplete="off" placeholder='Username', name="username")
                     .list-group-item
                       input.form-control.no-border(type='password', placeholder='Password', name="password")
 
@@ -48,4 +48,3 @@ block form
                   //p.text-muted.text-center
                   //  small Do not have an account?
                   //a.btn.btn-lg.btn-default.btn-block(href='/signup') Create an account
-                

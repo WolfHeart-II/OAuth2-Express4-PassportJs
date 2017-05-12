@@ -1,119 +1,55 @@
+// Author - Laércio S Bezerra | laerciosouza@lavid.ufpb.br
+
 /*
  * Passport.js Settings
  */
 
 // Required Libs
-var passport = require('passport');
-var OAuth2Strategy = require('passport-oauth2').Strategy;
-passport.use(new OAuth2Strategy({
-    authorizationURL: 'https://staging-auth.wallstreetdocs.com/oauth/authorize',
-    tokenURL: 'https://staging-auth.wallstreetdocs.com/oauth/token',
-    clientID: 'coding_test',
-    clientSecret: 'bwZm5XC6HTlr3fcdzRnD',
-    callbackURL: "http://localhost:3000"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ exampleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
-  }
-));
 
 
-//var FacebookStrategy = require('passport-facebook').Strategy;
-//var TwitterStrategy = require('passport-twitter').Strategy;
-//var InstagramStrategy = require('passport-instagram').Strategy;
-//var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var OAuth2Strategy = require('passport-oauth2'),
+    LocalStrategy = require('passport-local').Strategy,
+    OAuth2RefreshTokenStrategy = require('passport-oauth2-middleware').Strategy,
+    passport = require('passport');
+/*var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
+var InstagramStrategy = require('passport-instagram').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;*/
 
 // OAuth Settings
-//var authConfig = require('./auth');
+var authConfig = require('./auth');
 
-// Serialize and deserialize user (use on database).
-//passport.serializeUser(function(user, done) { done(null, user); });
-//passport.deserializeUser(function(user, done) { done(null, user); });
 
-// Facebook Auth
-/*passport.use(new FacebookStrategy(authConfig.Facebook,
-  function (accessToken, refreshToken, profile, done) {
-    // console.log(profile);
-    
-    var user = {
-      id: profile.id,
-      name: profile.displayName,
-      email: profile.emails[0].value,
-      profileURL: profile.profileUrl,
-      provider: profile.provider,
-      token: accessToken,
-      auth: 'Facebook',
-      admin: false,
-    };
+var refreshStrategy = new OAuth2RefreshTokenStrategy({
+  refreshWindow: 10, // Time in seconds to perform a token refresh before it expires
+  userProperty: 'ticket', // Active user property name to store OAuth tokens
+  authenticationURL: '/login', // URL to redirect unathorized users to
+  callbackParameter: 'callback' //URL query parameter name to pass a return URL
+});
 
-    // console.log(user);
-    return done(null, user);
-  }
-));*/
+passport.use('main', refreshStrategy);  //Main authorization strategy that authenticates
+                                        //user with store OAuth access token
+                                        //and performs a tokne refresh when needed
 
-// Twitter Auth
-/*passport.use(new TwitterStrategy(authConfig.Twitter,
-  function(accessToken, refreshToken, profile, done) {
-    // console.log(profile);
+var oauthStartegy = new OAuth2Strategy(authConfig.OAuth2,
+  refreshStrategy.getOAuth2StrategyCallback() //Create a callback for OAuth2Strategy
+);
 
-    var user = {
-      id: profile.id,
-      name: profile.displayName,
-      username: profile.username,
-      profileURL: 'http://twitter.com/' + profile.username,
-      provider: profile.provider,
-      token: accessToken,
-      auth: 'Twitter',
-      admin: false,
-    };
-    
-    // console.log(user);
-    return done(null, user);
-  }
-));*/
+passport.use('oauth', oauthStartegy); //Strategy to perform regular OAuth2 code grant workflow
+refreshStrategy.useOAuth2Strategy(oauthStartegy); //Register the OAuth strategy
+                                                  //to perform OAuth2 refresh token workflow
 
-// Instaram Auth
-/*passport.use(new InstagramStrategy(authConfig.Instagram,
-  function(accessToken, refreshToken, profile, done) {
-    // console.log(profile);
+var localStrategy = new LocalStrategy({
+  usernameField : 'username',
+  passwordField : 'password',
+  passReqToCallBack : true
+},
+  refreshStrategy.getLocalStrategyCallback() //Create a callback for LocalStrategy
+);
 
-    var user = {
-      id: profile.id,
-      name: profile.displayName,
-      username: profile.username,
-      profileURL: 'http://instagram.com/' + profile.username,
-      provider: profile.provider,
-      token: accessToken,
-      auth: 'Instagram',
-      admin: false,
-    };
+passport.use('local', localStrategy); //Strategy to perform a username/password login
+refreshStrategy.useLocalStrategy(localStrategy); //Register the LocalStrategy
+                                                 //to perform an OAuth 'password' workflow
 
-    // console.log(user);
-    return done(null, user);
-  }
-));*/
-
-// Google Auth
-/*passport.use(new GoogleStrategy(authConfig.Google,
-  function(accessToken, refreshToken, profile, done) {
-    // console.log(profile);
-
-    var user = {
-      id: profile.id,
-      name: profile.displayName,
-      email: profile.emails[0].value,
-      profileURL: 'http://plus.google.com/',
-      provider: profile.provider,
-      token: accessToken,
-      auth: 'Google',
-      admin: false,
-    };
-
-    // console.log(user);
-    return done(null, user);
-  }
-));*/
 
 module.exports = passport;

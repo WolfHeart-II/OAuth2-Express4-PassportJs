@@ -1,3 +1,5 @@
+// Author - Laércio S Bezerra | laerciosouza@lavid.ufpb.br
+
 /*
  * Index Controller
  */

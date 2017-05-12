@@ -44,7 +44,7 @@ exports.callback_google = passport.authenticate('google', {
 });
 
 // GET OAuth2 resource action
-exports.oauth2 = passport.authenticate('oauth2');
+/*exports.oauth2 = passport.authenticate('oauth2');
 
 // GET OAuth2 callback action
 exports.callback_oauth2 = passport.authenticate('oauth2', {
@@ -54,10 +54,29 @@ exports.callback_oauth2 = passport.authenticate('oauth2', {
     // Successful authentication, redirect home.
     res.redirect('/');
   }  
-});
+});*/
+
+/*exports.login = function(req, res, next) {
+  alert('hi');
+};*/
+
+exports.authenticate = function(req, res, next){
+    console.log('Login request!');
+    passport.authenticate('local', function(err, user, info) {
+        console.log('In authenticate callback!');
+    if (err) return next(err);
+
+    if (!user) {
+      req.flash('errors', { msg: info.message });
+      res.status(500).json({message: info.message});
+    }
+      res.json(user);
+    })(req, res, next);
+}
 
 // GET Sign out action
 exports.logout = function(req, res, next) {
+  debugger;
   req.logout();
   res.redirect('/');
 };

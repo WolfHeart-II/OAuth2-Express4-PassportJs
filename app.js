@@ -4,12 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var flash = require('connect-flash');
 
 var passport = require('./config/passport');
 var expressSession = require('express-session');
 
 var index_routes = require('./routes/index');
 var auth_routes = require('./routes/auth');
+
 
 var app = express();
 
@@ -26,12 +28,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(expressSession({
-	secret: '3026e4356ecd343ce3f6b4d18e2b3316',
+	secret: '3026e4356ecd343ce3f6b4d18e213316',
 	resave: true,
 	saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use('/', index_routes);
 app.use('/auth', auth_routes);
@@ -67,5 +70,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
+//app.listen(3000);
 
 module.exports = app;
