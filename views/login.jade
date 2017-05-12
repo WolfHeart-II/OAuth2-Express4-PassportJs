@@ -13,12 +13,12 @@ block form
             .well.col-md-12
 
               .form-signin
-                //if message != ""
-                //  .alert.alert-danger.animated.fadeIn
-                //    button.close(type='button', data-dismiss='alert') ×
-                //    div= message
+                if message != ""
+                  .alert.alert-danger.animated.fadeIn
+                    button.close(type='button', data-dismiss='alert') ×
+                    div= message
 
-                form.form-signin(action="auth/login", method="post", role="form")
+                form.form-signin(action="auth/authenticate", method="post", role="form")
                   input(type='hidden', name='_csrf', value=_csrf)
                   .list-group
                     .list-group-item
@@ -28,19 +28,6 @@ block form
 
                   button.btn.btn-lg.btn-primary.btn-block.btn-login(type='submit') Sign in
 
-                  //a(href="forgot-password" class="forgot-password") Forgot Password
-                  //a(href='/auth/twitter').btn.btn-block.btn-social.btn-adn.btn-twitter
-                  //  span.fa.fa-twitter
-                  //  |   &nbsp; Sign in with Twitter
-                  //a(href='/auth/instagram').btn.btn-block.btn-social.btn-adn.btn-instagram
-                  //  span.fa.fa-instagram
-                  //  |   &nbsp; Sign in with Instagram
-                  //a(href='/auth/facebook').btn.btn-block.btn-social.btn-adn.btn-facebook
-                  //  span.fa.fa-facebook
-                  //  |   &nbsp; Sign in with Facebook
-                  //a(href='/auth/google').btn.btn-block.btn-social.btn-adn.btn-google
-                  //  span.fa.fa-google
-                  //  |   &nbsp; Sign in with  Google
                   div.clearfix
 
                   //p.line.line-dashed

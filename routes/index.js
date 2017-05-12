@@ -15,6 +15,9 @@ router
   /* GET index page. */
   .get('/', index_controller.index_page)
 
+  /* GET index page. */
+  .get('/index', index_controller.index_page)
+
   /* GET login page. */
   .get('/login', index_controller.login_page)
   

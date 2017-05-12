@@ -14,30 +14,6 @@ router
 
   // AUTH ACTIONS
 
-  /* GET OAuth Facebook authentication. */
-  .get('/facebook', auth_controller.facebook)
-
-  /* GET OAuth callback for Facebook authentication. */
-  .get('/facebook/callback', auth_controller.callback_facebook)
-
-  /* GET OAuth Twitter authentication. */
-  .get('/twitter', auth_controller.twitter)
-
-  /* GET OAuth callback for Twitter authentication. */
-  .get('/twitter/callback', auth_controller.callback_twitter)
-
-  /* GET OAuth Instagram authentication. */
-  .get('/instagram', auth_controller.instagram)
-
-  /* GET OAuth callback for Instagram authentication. */
-  .get('/instagram/callback', auth_controller.callback_instagram)
-
-  /* GET OAuth Google authentication. */
-  .get('/google', auth_controller.google)
-
-  /* GET OAuth callback for Google authentication. */
-  .get('/google/callback', auth_controller.callback_google)
-
   //GET /login
   /*.get('/login', function(req, res){
     var callback = req.query.callback || '/';
@@ -50,7 +26,7 @@ router
   })*/
 
   //POST /login
-  .post('/login', auth_controller.authenticate)  
+  .post('/authenticate', auth_controller.authenticate)  
   /*.post('/login', function(req, res, next) {
    var callback = req.query.callback || '/profile';
    passport.authenticate('local', function(err, user, info) {
